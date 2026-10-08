@@ -1,0 +1,11 @@
+CC ?= cc
+CFLAGS ?= -std=c11 -Wall -Wextra -Werror
+INCLUDES=-ICore/Inc -IApplication/Inc -IProtocol/Inc
+all: test
+test:
+	$(CC) $(CFLAGS) $(INCLUDES) tests/test_signal_processing.c Core/Src/signal_processing.c Application/Src/motor_health.c -lm -o test_health
+	$(CC) $(CFLAGS) $(INCLUDES) tests/test_modbus_crc.c Protocol/Src/modbus_crc.c -o test_crc
+	./test_health
+	./test_crc
+clean:
+	rm -f test_health test_crc
